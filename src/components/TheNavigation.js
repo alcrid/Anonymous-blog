@@ -7,7 +7,7 @@ function TheNavigation() {
             <img className="h-7" src="logo.svg" alt="logo" />
         </Link>
         <Link to="/" >
-         <h2 className="text-xl font-bold text-center text-white">Articles </h2>
+         <h2 className="text-xl font-bold text-center text-white">Anonymous Articles </h2>
         </Link>
         
     </nav>

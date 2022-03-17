@@ -17,9 +17,13 @@
     } 
 
     .tag{
-        @apply px-2 py-1 text-sm rounded  transition duration-150 inline-block;
+        @apply px-2 py-1 text-sm rounded  transition duration-150 inline-block mr-3 mb-3;
     }
-    
+
+    .tag:hover{
+      @apply bg-green-500;
+    }
+
     .tag::before{
         content: '#';
     }
@@ -33,19 +37,31 @@
     }
 
     .textarea,.input{
-      @apply w-full px-4 py-2 mb-3 bg-gray-500 rounded;
+      @apply w-full px-4 py-2 mb-3 bg-gray-500 rounded transition duration-150;
     }
 
     .textarea:focus,.input:focus{
-      @apply outline-none;
+      @apply outline-none bg-gray-300 text-gray-700;
     }
 
     .add-tag-button{
-      @apply bg-black bg-opacity-10 transition duration-150 py-2 px-4 rounded ;
+      @apply bg-black bg-opacity-10 transition duration-150 py-1 px-4 rounded inline-block ;
     }
 
-    .add-tag-button:hover{
-      @apply bg-opacity-40;
+    .add-tag-button input{
+      @apply inline-block bg-transparent ml-2;
     }
+
+    .add-tag-button input:focus{
+      @apply inline-block  outline-none bg-transparent ml-2;
+    }
+
+    .add-tag-button div{
+      @apply inline-block py-2;
+    }
+
+    
+
+  
 }
 
