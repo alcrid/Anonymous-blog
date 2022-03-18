@@ -1,23 +1,28 @@
-import { useRef, useState } from "react";
+import {  useState } from "react";
+import { TransitionGroup,CSSTransition } from "react-transition-group";
 import Tag from "../components/Tag";
 
 function TheArticle() {
   const [tags,setTags] = useState([]);
-  const input = useRef();
+  const [tagInputValue,setTagInputValue] = useState("");
   const [id, setId] = useState(1);
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    if(!tagsContains(input.current.value.trim())){
+    if(!tagsContains(tagInputValue.trim())){
       setTags([...tags,{
         id: id,
-        value:input.current.value.trim()
+        value:tagInputValue.trim()
       }])
-      input.current.value = "";
+      setTagInputValue("")
       setId(id + 1)
     }
     
   };
+
+  const handleTagInputChange = (e) =>{
+    setTagInputValue(e.target.value)
+  }
 
   const tagsContains = (tag) => {
     for(let i = 0; i < tags.length;i++){
@@ -29,12 +34,15 @@ function TheArticle() {
     return false;
   }
 
-  const deleteTag = (e) =>{
+  const handleDeleteTag = (e,id) =>{
+    e.preventDefault();
+    console.log(id)
     setTags(
-      tags.filter(item =>{
-        return item.value !== e.target.innerHTML;
+      tags.filter(tag =>{
+        return tag.id !== id;
       })
     )
+    console.log(tags)
   }
 
   return (
@@ -46,15 +54,20 @@ function TheArticle() {
         <textarea className="textarea" placeholder="Article text insert here"></textarea>
         {/* <Tag name="school" />*/}
 
-        <footer className="py-3">
-          {tags.map(item => {
-            return <Tag key={item.id} form={true} handleTagDelete={deleteTag} name={item.value} className="ml-2" />
+        <TransitionGroup component="footer" className="py-3">
+      
+            {tags.map(item => {
+              return (
+                <CSSTransition key={item.id} timeout={200} classNames="tag">
+                  <Tag key={item.id} id={item.id} form={true} onTagDelete={handleDeleteTag} name={item.value} className="ml-2" />
+                </CSSTransition>
+              ) 
           })}
-        </footer>
+        </TransitionGroup>
         
         <form onSubmit={handleSubmit} className="add-tag-button">
           <div>#</div>
-          <input ref={input} placeholder="Tag name" />
+          <input onChange={handleTagInputChange} value={tagInputValue} placeholder="Tag name" />
         </form>
       </div>
       </div>

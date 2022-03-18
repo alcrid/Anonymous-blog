@@ -28,6 +28,24 @@
         content: '#';
     }
 
+    .tag-enter {
+      opacity: 0;
+    }
+
+    .tag-enter-active {
+      opacity: 1;
+      transition: opacity 200ms ease-in;
+    }
+
+    .tag-exit {
+      opacity: 1;
+    }
+
+    .tag-exit-active {
+      opacity: 0;
+      transition: opacity 200ms ease-in;
+    }
+
     .controll{
         @apply text-sm px-2 py-1 mr-2 rounded bg-gray-600 bg-opacity-30 hover:bg-opacity-100 inline-block cursor-pointer;
     }

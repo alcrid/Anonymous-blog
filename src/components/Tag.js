@@ -1,15 +1,16 @@
 import { useEffect } from "react";
+import { CSSTransition } from "react-transition-group";
 
 
 function Tag(props) {
-    const {name,form,handleTagDelete} = props;
+    const {id,name,form,onTagDelete} = props;
 
     useEffect(()=>{
-        console.log(form);
+        
     })
 
     return (    
-        <a onClick={form ? handleTagDelete : () =>{}} href="#" className="tag bg-green-600 hover:bg-green-700">{name}</a>  
+        <a onClick={form ? (e) => {onTagDelete(e,id)} : (e) =>{}} href="#" className="tag bg-green-600 hover:bg-green-700">{name}</a>  
     );
   }
   
