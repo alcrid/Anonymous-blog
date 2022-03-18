@@ -78,7 +78,13 @@
       @apply inline-block py-2;
     }
 
-    
+    .button{
+      @apply p-2 bg-blue-500 rounded-md transition duration-150;
+    }
+
+    .button:hover{
+      @apply bg-blue-600;
+    }
 
   
 }

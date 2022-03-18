@@ -1,4 +1,5 @@
 import {  useState } from "react";
+import { Link } from "react-router-dom";
 import { TransitionGroup,CSSTransition } from "react-transition-group";
 import Tag from "../components/Tag";
 
@@ -68,6 +69,11 @@ function TheArticle() {
         <form onSubmit={handleSubmit} className="add-tag-button">
           <div>#</div>
           <input onChange={handleTagInputChange} value={tagInputValue} placeholder="Tag name" />
+        </form>
+
+        <form className="flex justify-start items-center mt-5">
+          <button className="button" type="submit">Post this!</button>
+          <Link to="/" className="text-red-400 ml-3">Discard</Link>
         </form>
       </div>
       </div>
