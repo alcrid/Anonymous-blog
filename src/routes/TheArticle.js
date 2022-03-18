@@ -1,14 +1,18 @@
+import axios from "axios";
 import {  useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { TransitionGroup,CSSTransition } from "react-transition-group";
 import Tag from "../components/Tag";
 
 function TheArticle() {
   const [tags,setTags] = useState([]);
   const [tagInputValue,setTagInputValue] = useState("");
+  const [articleHeadingInputValue,setArticleHeadingInputValue] = useState("");
+  const [articleContentInputValue,setArticleContentInputValue] = useState("");
   const [id, setId] = useState(1);
+  let navigate = useNavigate();
 
-  const handleSubmit = (e) =>{
+  const handleTagCreateSubmit = (e) =>{
     e.preventDefault();
     if(!tagsContains(tagInputValue.trim())){
       setTags([...tags,{
@@ -20,6 +24,10 @@ function TheArticle() {
     }
     
   };
+
+  function goOnHomePage() {
+    navigate("/");
+  }
 
   const handleTagInputChange = (e) =>{
     setTagInputValue(e.target.value)
@@ -46,13 +54,45 @@ function TheArticle() {
     console.log(tags)
   }
 
+  const handlePostArticleSubmit = (e) => {
+      e.preventDefault();
+
+      if(articleHeadingInputValue.trim() === "" || articleContentInputValue.trim() === "") return false;
+      let data = {
+        heading: articleHeadingInputValue,
+        content: articleContentInputValue,
+        tags: tags
+      };
+
+      axios.post("http://localhost:80/api/add.php",data,{
+        headers: {"Access-Control-Allow-Origin": "*"},
+        responseType: "json",
+      })
+      .then(response => {
+        if(response.data.state = "Success"){
+          goOnHomePage();
+        }
+        else{
+          alert(response.data.reason)
+        }
+      });
+  }
+
+  const handleArticleHeadingChange = (e) => {
+    setArticleHeadingInputValue(e.target.value);
+  }
+
+  const handleArticleContentChange = (e) => {
+    setArticleContentInputValue(e.target.innerHTML);
+  }
+
   return (
 
       <div className="px-5">
         <div className="the-article ">
         <h4 className="my-3 text-xl font-medium">Submit your article <span className=" border-b-2 border-dotted border-white">anonymously</span></h4>
-        <input className="input" type="text" placeholder="Heading"/>
-        <textarea className="textarea" placeholder="Article text insert here"></textarea>
+        <input onChange={handleArticleHeadingChange} value={articleHeadingInputValue} className="input" type="text" placeholder="Heading"/>
+        <textarea onChange={handleArticleContentChange} value={articleContentInputValue} className="textarea" placeholder="Article text insert here"></textarea>
         {/* <Tag name="school" />*/}
 
         <TransitionGroup component="footer" className="py-3">
@@ -66,12 +106,12 @@ function TheArticle() {
           })}
         </TransitionGroup>
         
-        <form onSubmit={handleSubmit} className="add-tag-button">
+        <form onSubmit={handleTagCreateSubmit} className="add-tag-button">
           <div>#</div>
           <input onChange={handleTagInputChange} value={tagInputValue} placeholder="Tag name" />
         </form>
 
-        <form className="flex justify-start items-center mt-5">
+        <form onSubmit={handlePostArticleSubmit} className="flex justify-start items-center mt-5">
           <button className="button" type="submit">Post this!</button>
           <Link to="/" className="text-red-400 ml-3">Discard</Link>
         </form>
