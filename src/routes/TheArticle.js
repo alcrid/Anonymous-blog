@@ -14,7 +14,7 @@ function TheArticle() {
 
   const handleTagCreateSubmit = (e) =>{
     e.preventDefault();
-    if(!tagsContains(tagInputValue.trim())){
+    if(!tagsContains(tagInputValue.trim()) && tagInputValue.trim() !== ""){
       setTags([...tags,{
         id: id,
         value:tagInputValue.trim()
@@ -45,37 +45,49 @@ function TheArticle() {
 
   const handleDeleteTag = (e,id) =>{
     e.preventDefault();
-    console.log(id)
     setTags(
       tags.filter(tag =>{
         return tag.id !== id;
       })
     )
-    console.log(tags)
   }
 
   const handlePostArticleSubmit = (e) => {
       e.preventDefault();
 
       if(articleHeadingInputValue.trim() === "" || articleContentInputValue.trim() === "") return false;
-      let data = {
-        heading: articleHeadingInputValue,
-        content: articleContentInputValue,
-        tags: tags
-      };
+      const params = new URLSearchParams();
+      params.append('heading', articleHeadingInputValue);
+      params.append('content', articleContentInputValue);
+      params.append('tags', generateArrayOf(tags,'value').join(","));
 
-      axios.post("http://localhost:80/api/add.php",data,{
-        headers: {"Access-Control-Allow-Origin": "*"},
-        responseType: "json",
+      axios({
+        method: "post",
+        url: "http://localhost:80/api/add.php",
+        data: params
       })
       .then(response => {
-        if(response.data.state = "Success"){
+        console.log(response);
+        //response = JSON.parse(response);
+        if(response.status === 200 && response.state === "Success"){
           goOnHomePage();
         }
         else{
-          alert(response.data.reason)
+          //alert(response.data.reason)
         }
+      })
+      .catch(error => {
+        console.log(error)
       });
+  }
+
+  const generateArrayOf = (array,value) =>{
+    let newArr = [];
+    for(let i = 0;i < array.length; i++){
+      newArr.push(array[i][value]);
+    }
+
+    return newArr;
   }
 
   const handleArticleHeadingChange = (e) => {
@@ -83,7 +95,7 @@ function TheArticle() {
   }
 
   const handleArticleContentChange = (e) => {
-    setArticleContentInputValue(e.target.innerHTML);
+    setArticleContentInputValue(e.target.value);
   }
 
   return (

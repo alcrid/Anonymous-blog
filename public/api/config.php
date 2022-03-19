@@ -1,6 +1,7 @@
 <?php
 // URL's
 const BASE_URL = "http://localhost:80/";
+error_reporting(E_ERROR | E_PARSE);
 cors();
 
 // DB connection
@@ -14,7 +15,7 @@ $database = new PDO("mysql:host=$server_name;port=3306;dbname=$database_name;cha
 
 // ** FUNCTIONS **
 // Responses
-function errorResponse($reason){
+function error_response($reason){
     $response = new stdClass();
     $response->state = "Error";
     $response->reasson = $reason;
@@ -22,7 +23,7 @@ function errorResponse($reason){
     return json_encode($response);
 }
 
-function successResponse($data){
+function success_response($data){
     $response = new stdClass();
     $response->state = "Success";
     $response->result = $data;
@@ -32,7 +33,7 @@ function successResponse($data){
 
 //Url's
 
-function getUrl($url) {
+function get_url($url) {
     return BASE_URL . $url;
 }
 
@@ -61,4 +62,96 @@ function cors() {
 
     }
 
+}
+
+// Validation
+function is_valid($item){
+    if ( isset($item) && $item != null ) {
+        if (is_array($item) && count($item) > 0) return true;
+        if (is_string($item) && strlen(trim($item)) != 0) return true;
+        if (is_numeric($item) && $item >= 0) return true;
+        if (is_object($item)) return true;
+    }
+
+    return false;
+
+}
+
+// DB helpers
+
+function insert_values($keys, $values){
+    if (is_array($values)){
+        $vals = "";
+
+        for ($i = 0;$i < count($values); $i++){
+            if ($i != 0){
+                $vals .= ",";
+            }
+
+            $vals .= db_values_stringify($values[$i]);
+
+        }
+
+        return  db_keys_stringify($keys) . " VALUES " . $vals;
+    }else return  db_keys_stringify($keys) . " VALUE " . db_values_stringify($values);
+
+
+}
+
+function variable_name($var) {
+    foreach($GLOBALS as $var_name => $value) {
+        if ($value === $var) {
+            return $var_name;
+        }
+    }
+
+    return false;
+}
+
+function db_values_stringify($arr){
+    $str = "(";
+
+    for ($i = 0; $i < count($arr); $i++){
+        if ($i != 0) $str .= ",";
+
+        $item = $arr[$i];
+        if (is_string($item)){
+            $str .= "'" . $item . "'";
+        }
+        else $str .= $item;
+    }
+
+    return $str . ")";
+}
+
+function db_keys_stringify($arr){
+    $str = "(";
+
+    for ($i = 0; $i < count($arr); $i++){
+        if ($i != 0) $str .= ",";
+
+        $str .= "`" . $arr[$i] . "`";
+    }
+
+    return $str . ")";
+}
+
+function tags_connection_array($post_id, $tags_id_arr){
+    $arr = [];
+    for ($i = 0; $i < count($tags_id_arr); $i++){
+
+        array_push($arr,[$tags_id_arr[$i],$post_id]);
+    }
+
+    return $arr;
+}
+
+function tags_each_own_array($array){
+    $arr = [];
+    for ($i = 0; $i < count($array); $i++){
+
+        array_push($arr,[$array[$i]]);
+    }
+
+    return $arr;
 }
