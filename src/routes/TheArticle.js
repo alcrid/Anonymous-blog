@@ -17,13 +17,22 @@ function TheArticle() {
     if(!tagsContains(tagInputValue.trim()) && tagInputValue.trim() !== ""){
       setTags([...tags,{
         id: id,
-        value:tagInputValue.trim()
+        value:removeUnwantedCharacters(tagInputValue.trim())
       }])
       setTagInputValue("")
       setId(id + 1)
     }
     
   };
+
+  const removeUnwantedCharacters = str =>{
+      let newStr = "";
+      for (let i = 0; i < str.length; i++) {
+          if (str.charAt(i) != ",") newStr += str.charAt(i);
+      }
+
+      return newStr;
+  }
 
   function goOnHomePage() {
     navigate("/");

@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-
+import {useRef, useState} from "react";
 
 function Tag(props) {
-    const {id,form,onTagDelete} = props;
+    const {id,name,form,onTagDelete} = props;
     const [isInForm,setIsInForm] = useState(form);
-    const name = useState(props.name);
 
     const handleLinkClick = (e) => {
         if(isInForm)  {
@@ -12,8 +10,11 @@ function Tag(props) {
         }
     }
 
-    return (    
-        <a href="#" onClick={handleLinkClick} className="tag bg-green-600 hover:bg-green-700">{name}</a>  
+    return (
+        <div className="inline-block">
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a href="#" onClick={handleLinkClick} className="tag">{name}</a>
+        </div>
     );
 }
   

@@ -1,19 +1,23 @@
 import Tag from "./Tag";
 
 
-function Article() {
+function Article(props) {
+    const {tags,content,heading} = props;
+
   return (
-        
     <li className="article bg-green-500">
-        <h3 className="mb-2 text-lg font-medium leading-4">Article heading</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis excepturi dolorem soluta obcaecati vero eius, voluptates, consectetur et cum in sint repellendus consequuntur quod! Doloremque impedit quidem eligendi fugiat facilis?</p>
+        <h3 className="mb-2 text-lg font-medium leading-4">{heading}</h3>
+            <p>{content}</p>
         <aside className="mt-3">
-            <Tag name="school"/>
+            {tags.map(tag => {
+                return (<Tag key={tag} name={tag} />)
+            })}
+
         </aside>
         <footer className="mt-4 text-left">
-            <div className="controll bg-green-600 hover:bg-green-700">Like</div>
-            <div className="controll bg-green-600 hover:bg-green-700">Coment</div>
-            <div className="controll bg-green-600 hover:bg-green-700">Share</div>
+            <div className="controll">Like</div>
+            <div className="controll">Comment</div>
+            <div className="controll">Share</div>
         </footer>
     </li>
 

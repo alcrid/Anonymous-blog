@@ -17,7 +17,7 @@
     } 
 
     .tag{
-        @apply px-2 py-1 text-sm rounded  transition duration-150 inline-block mr-3 mb-3;
+        @apply bg-green-600 hover:bg-green-700 px-2 py-1 text-sm rounded  transition duration-150 inline-block mr-3 mb-3;
     }
 
     .tag:hover{
@@ -47,7 +47,7 @@
     }
 
     .controll{
-        @apply text-sm px-2 py-1 mr-2 rounded bg-gray-600 bg-opacity-30 hover:bg-opacity-100 inline-block cursor-pointer;
+        @apply bg-green-600 hover:bg-green-700 text-sm px-2 py-1 mr-2 rounded bg-gray-600 bg-opacity-30 hover:bg-opacity-100 inline-block cursor-pointer;
     }
 
     .the-article{
