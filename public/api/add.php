@@ -22,8 +22,8 @@ if(isset($_POST)){
             if ($database->query($query) != false){
                 // Connect tags with post
                 $query = "INSERT INTO posts_to_tags " . insert_values(["tag_name","post_id"],tags_connection_array($post_id,$tags)) . " ON DUPLICATE KEY UPDATE `tag_name`=`tag_name`";
-                if ($database->query($query) != false) success_response($post_id);
-                else error_response("We were unable add tags to the post");
+                if ($database->query($query) != false) die(success_response($post_id));
+                else die(error_response("We were unable add tags to the post"));
             }
             else die(error_response("We were unable to store tags"));
 

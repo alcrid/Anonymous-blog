@@ -116,7 +116,7 @@ function db_values_stringify($arr){
 
         $item = $arr[$i];
         if (is_string($item)){
-            $str .= "'" . $item . "'";
+            $str .= "'" . escape($item) . "'";
         }
         else $str .= $item;
     }
@@ -130,7 +130,7 @@ function db_keys_stringify($arr){
     for ($i = 0; $i < count($arr); $i++){
         if ($i != 0) $str .= ",";
 
-        $str .= "`" . $arr[$i] . "`";
+        $str .= "`" . escape($arr[$i]) . "`";
     }
 
     return $str . ")";
@@ -154,4 +154,8 @@ function tags_each_own_array($array){
     }
 
     return $arr;
+}
+
+function escape($string){
+    return addslashes($string);
 }

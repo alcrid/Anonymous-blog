@@ -69,11 +69,11 @@ function TheArticle() {
       .then(response => {
         console.log(response);
         //response = JSON.parse(response);
-        if(response.status === 200 && response.state === "Success"){
+        if(response.status === 200 && response.data.state === "Success"){
           goOnHomePage();
         }
         else{
-          //alert(response.data.reason)
+          alert("Error - " + response.data.reason)
         }
       })
       .catch(error => {
