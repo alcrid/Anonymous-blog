@@ -1,10 +1,10 @@
 # Getting Started with Anonymous Blog
 
-This project was created with React(JS) and Tailwind. It's simple blog when Everyone can post something and Everyone can see last 20 posts.
+This project was created with React(JS) and Tailwind. It's simple blog where everyone can post something and everyone can see last 20 posts.
 
 ## To start the project
-1. Download and extract project to that folder.
-There you can see file **db_export.sql**, take it and import to your local database
+1. Download and extract project to your folder.
+There you can see file **db_export.sql**, take it and import to your local database.
 
 2. Go to **public/api/config.php** and change your DB information and start MySQL server
 3. Go to **public/** and start php server with command
