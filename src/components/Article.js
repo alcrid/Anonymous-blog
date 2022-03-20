@@ -15,9 +15,9 @@ function Article(props) {
 
         </aside>
         <footer className="mt-4 text-left">
-            <div className="controll">Like</div>
+            {/*<div className="controll">Like</div>
             <div className="controll">Comment</div>
-            <div className="controll">Share</div>
+            <div className="controll">Share</div>*/}
         </footer>
     </li>
 

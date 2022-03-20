@@ -17,3 +17,5 @@ There you can see file **db_export.sql**, take it and import to your local datab
 Now the project should be opened in your default browser, and you are now able to do what is project intended for. Enjoy 
 
 Here is a little sneak peek:
+
+![video](https://i.imgur.com/C2n4RAY.gif)
