@@ -1,4 +1,4 @@
-# Getting Started with Anonymous Blog
+# Getting Started with Anonymous Blog [![wakatime](https://wakatime.com/badge/user/d8bd883a-f3b1-4347-8b20-ceade938527c/project/d79cadf8-bd0f-42d8-9ef7-3a323de311cb.svg)](https://wakatime.com/badge/user/d8bd883a-f3b1-4347-8b20-ceade938527c/project/d79cadf8-bd0f-42d8-9ef7-3a323de311cb)
 
 This project was created with React(JS) and Tailwind. It's simple blog where everyone can post something and everyone can see last 20 posts.
 
